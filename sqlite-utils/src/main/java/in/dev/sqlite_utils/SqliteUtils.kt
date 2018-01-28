@@ -12,7 +12,7 @@ object SqliteUtils {
         private var hasColumns = false
 
         init {
-            query = "CREATE TABLE ".plus(tableName).openParens()
+            query = "CREATE TABLE IF NOT EXISTS ".plus(tableName).openParens()
         }
 
         /**

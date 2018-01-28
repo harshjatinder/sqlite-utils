@@ -13,6 +13,7 @@ buildscript {
         test_runner_version = '1.0.1'
         espresso_core_version = '3.0.1'
         maven_gradle_plugin_version = '2.0'
+        group_name = 'com.github.harshjatinder'
     }
     repositories {
         google()
