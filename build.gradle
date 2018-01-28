@@ -1,0 +1,37 @@
+buildscript {
+    ext {
+        compile_sdk_version = 27
+        application_id = 'in.dev_op.sqlite_utils'
+        min_sdk_version = 14
+        target_sdk_version = 27
+        version_code = 1
+        version_name = '1.0'
+        support_lib_version = '27.0.2'
+        junit_version = '4.12'
+        gradle_version = '3.0.1'
+        kotlin_version = '1.2.21'
+        test_runner_version = '1.0.1'
+        espresso_core_version = '3.0.1'
+        maven_gradle_plugin_version = '2.0'
+    }
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$maven_gradle_plugin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
