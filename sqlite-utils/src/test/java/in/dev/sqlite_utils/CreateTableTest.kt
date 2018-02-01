@@ -78,7 +78,7 @@ class CreateTableTest {
                     it.addColumn(COLUMN_ID, INTEGER, true, autoIncrement = true)
                     it.addColumn(COLUMN_NAME, TEXT, notNull = true)
                     it.addColumn(COLUMN_IMAGE, BLOB)
-                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS)
+                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID)
                 }.getQuery()
         //Then
         Assert.assertEquals(true, (query != null))
@@ -95,7 +95,7 @@ class CreateTableTest {
                     it.addColumn(COLUMN_ID, INTEGER, true, autoIncrement = true)
                     it.addColumn(COLUMN_NAME, TEXT, notNull = true)
                     it.addColumn(COLUMN_IMAGE, BLOB)
-                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS)
+                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID)
                 }.getQuery()
         //Then
         Assert.assertEquals(true, (query == null))

@@ -41,16 +41,18 @@ object SqliteUtils {
         /**
          * @param name: Name of the column
          * @param type: Data type of the column
-         * @param table: Reference CreateTable name of foreign key
+         * @param refTable: Reference Table name of foreign key
+         * @param refColumn: Reference column name of foreign key
          */
         fun addForeignKeyColumn(
                 name: String,
                 type: DATA_TYPE,
-                table: String): CreateTable {
+                refTable: String,
+                refColumn: String): CreateTable {
             if (hasColumns) query = query.comma()
             query = query.space().plus(name).space().plus(type).comma()
             query = query.space().plus("FOREIGN KEY").space().openParens().plus(name).closeParens()
-            query = query.space().plus("REFERENCES").space().plus(table).space().openParens().plus(name).closeParens()
+            query = query.space().plus("REFERENCES").space().plus(refTable).space().openParens().plus(refColumn).closeParens()
             hasColumns = true
             return this
         }
