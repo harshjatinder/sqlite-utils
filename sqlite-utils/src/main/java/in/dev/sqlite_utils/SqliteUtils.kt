@@ -16,6 +16,36 @@ object SqliteUtils {
         }
 
         /**
+         * Adds created_at column automatically with (DATETIME DEFAULT CURRENT_TIMESTAMP)
+         */
+        fun addCreatedAt(): CreateTable {
+            if (hasColumns) query = query.comma()
+            query = query.plus(CREATED_AT).space().plus(DATETIME_DEFAULT_TIMESTAMP)
+            hasColumns = true
+            return this
+        }
+
+        /**
+         * Adds updated_at column automatically with (DATETIME DEFAULT CURRENT_TIMESTAMP)
+         */
+        fun addUpdatedAt(): CreateTable {
+            if (hasColumns) query = query.comma()
+            query = query.plus(UPDATED_AT).space().plus(DATETIME_DEFAULT_TIMESTAMP)
+            hasColumns = true
+            return this
+        }
+
+        /**
+         * Adds removed_at column automatically with (DATETIME DEFAULT CURRENT_TIMESTAMP)
+         */
+        fun addRemovedAt(): CreateTable {
+            if (hasColumns) query = query.comma()
+            query = query.plus(REMOVED_AT).space().plus(DATETIME_DEFAULT_TIMESTAMP)
+            hasColumns = true
+            return this
+        }
+
+        /**
          * @param name: Name of the column
          * @param type: Data type of the column
          * @param primaryKey: If true column will be set as primary key
@@ -70,9 +100,19 @@ object SqliteUtils {
             return this
         }
 
+        /**
+         * @return: generated query as String
+         */
         fun getQuery(): String? {
             if (tableName.isEmpty()) return null
             else return query.closeParens().semicolon()
+        }
+
+        companion object {
+            private const val DATETIME_DEFAULT_TIMESTAMP = "DATETIME DEFAULT CURRENT_TIMESTAMP"
+            const val CREATED_AT = "created_at"
+            const val UPDATED_AT = "updated_at"
+            const val REMOVED_AT = "removed_at"
         }
     }
 }
