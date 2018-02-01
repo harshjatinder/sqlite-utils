@@ -21,19 +21,32 @@ object SqliteUtils {
          * @param primaryKey: If true column will be set as primary key
          * @param autoIncrement: If true column value will autoIncrement (For Integer Type only)
          * @param notNull: If true column will be set as Not Null
+         * @param defaultValue: default value for column (NOT ALLOWED FOR DATATYPE = BLOB || NULL)
          */
         fun addColumn(
                 name: String,
                 type: DATA_TYPE,
                 primaryKey: Boolean = false,
                 autoIncrement: Boolean = false,
-                notNull: Boolean = false
+                notNull: Boolean = false,
+                defaultValue: String? = null
         ): CreateTable {
             if (hasColumns) query = query.comma()
             query = query.plus(name).space().plus(type)
             if (primaryKey) query = query.space().plus("PRIMARY KEY")
             else if (notNull) query = query.space().plus("NOT NULL")
             if (autoIncrement && type.equals(DATA_TYPE.INTEGER)) query = query.space().plus("AUTOINCREMENT")
+            if (!defaultValue.isNullOrEmpty()) {
+                when (type) {
+                    DATA_TYPE.TEXT -> query = query.space().plus(" DEFAULT ")
+                            .singleQuote().plus(defaultValue).singleQuote()
+                    DATA_TYPE.INTEGER -> query = query.space().plus(" DEFAULT ").plus(defaultValue)
+                    DATA_TYPE.REAL -> query = query.space().plus(" DEFAULT ").plus(defaultValue)
+                    else -> {
+                        //DO-NOTHING
+                    }
+                }
+            }
             hasColumns = true
             return this
         }

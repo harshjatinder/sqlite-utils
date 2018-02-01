@@ -65,3 +65,11 @@ fun String.underScore(): String {
 fun String.hiphen(): String {
     return this.plus("-")
 }
+
+fun String.singleQuote(): String {
+    return this.plus("'")
+}
+
+fun String.doubleQuote(): String {
+    return this.plus("\"")
+}
