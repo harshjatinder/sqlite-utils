@@ -40,7 +40,7 @@ object SqliteUtils {
          */
         fun addRemovedAt(): CreateTable {
             if (hasColumns) query = query.comma()
-            query = query.plus(REMOVED_AT).space().plus(DATETIME_DEFAULT_TIMESTAMP)
+            query = query.plus(REMOVED_AT).space().plus(DATETIME)
             hasColumns = true
             return this
         }
@@ -68,10 +68,10 @@ object SqliteUtils {
             if (autoIncrement && type.equals(DATA_TYPE.INTEGER)) query = query.space().plus("AUTOINCREMENT")
             if (!defaultValue.isNullOrEmpty()) {
                 when (type) {
-                    DATA_TYPE.TEXT -> query = query.space().plus(" DEFAULT ")
+                    DATA_TYPE.TEXT -> query = query.space().plus(DEFAULT).space()
                             .singleQuote().plus(defaultValue).singleQuote()
-                    DATA_TYPE.INTEGER -> query = query.space().plus(" DEFAULT ").plus(defaultValue)
-                    DATA_TYPE.REAL -> query = query.space().plus(" DEFAULT ").plus(defaultValue)
+                    DATA_TYPE.INTEGER -> query = query.space().plus(DEFAULT).space().plus(defaultValue)
+                    DATA_TYPE.REAL -> query = query.space().plus(DEFAULT).space().plus(defaultValue)
                     else -> {
                         //DO-NOTHING
                     }
@@ -109,10 +109,13 @@ object SqliteUtils {
         }
 
         companion object {
-            private const val DATETIME_DEFAULT_TIMESTAMP = "DATETIME DEFAULT CURRENT_TIMESTAMP"
+            const val CURRENT_TIMESTAMP = "CURRENT_TIMESTAMP"
             const val CREATED_AT = "created_at"
             const val UPDATED_AT = "updated_at"
             const val REMOVED_AT = "removed_at"
+            private const val DATETIME = "DATETIME"
+            private const val DEFAULT = "DEFAULT"
+            private val DATETIME_DEFAULT_TIMESTAMP = DATETIME.space().plus(DEFAULT).space().plus(CURRENT_TIMESTAMP)
         }
     }
 }
