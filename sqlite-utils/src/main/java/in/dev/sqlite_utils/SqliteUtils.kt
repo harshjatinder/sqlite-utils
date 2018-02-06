@@ -91,11 +91,15 @@ object SqliteUtils {
                 name: String,
                 type: DATA_TYPE,
                 refTable: String,
-                refColumn: String): CreateTable {
+                refColumn: String,
+                onDeleteCascade: Boolean,
+                onUpdateCascade: Boolean): CreateTable {
             if (hasColumns) query = query.comma()
             query = query.space().plus(name).space().plus(type).comma()
             query = query.space().plus("FOREIGN KEY").space().openParens().plus(name).closeParens()
             query = query.space().plus("REFERENCES").space().plus(refTable).space().openParens().plus(refColumn).closeParens()
+            if (onDeleteCascade) query = query.space().plus("ON DELETE CASCADE")
+            if (onUpdateCascade) query = query.space().plus("ON UPDATE CASCADE")
             hasColumns = true
             return this
         }

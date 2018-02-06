@@ -89,7 +89,8 @@ class CreateTableTest {
                     it.addColumn(COLUMN_BLOB, BLOB, notNull = true, defaultValue = DEFAULT_BLOB)
                     it.addColumn(COLUMN_IMAGE, BLOB)
                     it.addCreatedAt().addUpdatedAt().addRemovedAt()
-                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID)
+                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID,
+                            true, true)
                 }.getQuery()
         //Then
         Assert.assertEquals(true, (query != null))
@@ -110,7 +111,8 @@ class CreateTableTest {
                     it.addColumn(COLUMN_BLOB, BLOB, notNull = true, defaultValue = DEFAULT_BLOB)
                     it.addColumn(COLUMN_IMAGE, BLOB)
                     it.addCreatedAt().addUpdatedAt().addRemovedAt()
-                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID)
+                    it.addForeignKeyColumn(COLUMN_FOREIGN_KEY, INTEGER, TABLE_USERS, COLUMN_ID,
+                            true, true)
                 }.getQuery()
         //Then
         Assert.assertEquals(true, (query == null))
